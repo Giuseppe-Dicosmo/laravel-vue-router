@@ -2072,7 +2072,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  beforeMount: function beforeMount() {// Axios.get('')
+  data: function data() {
+    return {
+      post: null
+    };
+  },
+  beforeMount: function beforeMount() {
+    var _this = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/posts/".concat(this.$route.params.slug)).then(function (res) {
+      var post = res.data.post;
+      _this.post = post;
+    })["catch"](function (err) {
+      console.warn(err);
+    });
   }
 });
 
@@ -3423,7 +3436,9 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    " + _vm._s(_vm.$route.params.slug) + "\n")])
+  return _c("div", [
+    _vm.post ? _c("h1", [_vm._v(_vm._s(_vm.post.title))]) : _vm._e(),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
